@@ -1,3 +1,50 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+/* globals.css */
+@import './fonts.css';
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+  
+  }
+
+
+  /* Additional styles for button with SVG border revolve effect */
+  
+ /* globals.css */
+
+ .neon-loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 8rem;
+  height: 3rem;
+  border-radius: 8px; /* Reduced border-radius for sharper edges */
+  background-color: #0dea09;
+  color: #000; /* Set text color to dark */
+  font-weight: bold; /* Set text to extra bold */
+  text-decoration: none;
+  animation: neon-loader 1s infinite alternate; /* Retained neon-loader animation */
+  box-shadow: 0 0 5px #00cccc, 0 0 15px #00cccc, 0 0 20px rgba(0, 0, 0, 0.2); /* Reduced shadow */
+  transition: box-shadow 0.3s ease-in-out; /* Removed color transition */
+}
+
+.neon-loader:hover {
+  background-color: #2fff00 !important; /* Adjusted hover background color */
+  animation-play-state: paused;
+  box-shadow: 0 0 3px #41cc00, 0 0 10px #00cccc, 0 0 15px rgba(0, 0, 0, 0.1); /* Adjusted hover shadow */
+}
+
+.neon-loader:active {
+  color: #000; /* Set text color to dark on click */
+}
+
+@keyframes neon-loader {
+  to {
+    background-color: #00cccc; /* Adjusted animation background color */
+  }
+}
+
