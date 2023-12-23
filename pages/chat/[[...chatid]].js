@@ -57,66 +57,67 @@ export default function Chat() {
         <Head>
           <title>New Chat</title>
         </Head>
-    
-          <div className="grid h-screen grid-cols-1 overflow-y-hidden md:grid-cols-[260px_1fr] ">
-            <ChatSideBar className="md:col-span-1" />
-            <div className="flex flex-1 flex-col overflow-y-auto bg-gray-700 text-white">
-              {/* Chat window */}
-              <div className="flex-1 p-4 md:p-6 lg:p-8 xl:p-10">
-                <InteractiveDrawer />
-              </div>
 
-              {/* Render SupraGpt message only if showSupraGpt is true */}
-              {showSupraGpt && (
-                <div>
-                  <div className="flex justify-center">
-                    <Lottie
-                      animationData={awesome2}
-                      className="h-96 w-96  md:h-32 md:w-32 lg:h-[500px] lg:w-[500px]"
-                    />
-                  </div>
-
-                  <div className="neon-gloww mb-16 text-center text-4xl font-extrabold text-white lg:text-5xl">
-                    SupraGpt
-                  </div>
-                </div>
-              )}
-
-              {chatHistory.map((chat, index) => (
-                <div
-                  key={index}
-                  className={
-                    chat.type === "user" ? "user-message" : "api-message"
-                  }
-                >
-                  {chat.message}
-                </div>
-              ))}
-              {/* Footer with form */}
-              <footer className=" bg-gray-800 p-4 md:p-6 lg:p-8 xl:p-10">
-            <form
-              onSubmit={handleSubmit}
-              className="flex flex-col items-center  md:flex-row md:gap-4"
-            >
-              <textarea
-                className="mb-4  w-full resize-none rounded-md bg-gray-700 p-2 text-white focus:border-emerald-500 focus:bg-gray-600 focus:outline focus:outline-emerald-500"
-                placeholder="Send a message..."
-                value={messageText}
-                onChange={(e) => {
-                  setMessageText(e.target.value);
-                }}
-                name="message"
-              />
-              <button type="submit" className="neon-loader mb-4 text-black">
-                Submit
-              </button>
-            </form>
-          </footer>
+        <div className="grid h-screen grid-cols-1 overflow-y-hidden md:grid-cols-[260px_1fr] ">
+          <ChatSideBar className="md:col-span-1" />
+          <div className="flex flex-1 flex-col overflow-y-auto bg-gray-700 text-white">
+            {/* Chat window */}
+            <div className="flex-1 p-4 md:p-6 lg:p-8 xl:p-10">
+              <InteractiveDrawer />
             </div>
-            
+
+            {/* Render SupraGpt message only if showSupraGpt is true */}
+            {showSupraGpt && (
+              <div>
+                <div className="flex justify-center">
+                  <Lottie
+                    animationData={awesome2}
+                    className="h-96 w-96  md:h-32 md:w-32 lg:h-[500px] lg:w-[500px]"
+                  />
+                </div>
+
+                <div className="neon-gloww mb-16 text-center text-4xl font-extrabold text-white lg:text-5xl">
+                  SupraGpt
+                  <br />
+                  <div className="neon-gloww text-white-500 text-xl">
+                    The Glowish Generative Pre Trained Transformer
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {chatHistory.map((chat, index) => (
+              <div
+                key={index}
+                className={
+                  chat.type === "user" ? "user-message" : "api-message"
+                }
+              >
+                {chat.message}
+              </div>
+            ))}
+            {/* Footer with form */}
+            <footer className=" bg-gray-800 p-4 md:p-6 lg:p-8 xl:p-10">
+              <form
+                onSubmit={handleSubmit}
+                className="flex flex-col items-center  md:flex-row md:gap-4"
+              >
+                <textarea
+                  className="mb-4  w-full resize-none rounded-md bg-gray-700 p-2 text-white focus:border-emerald-500 focus:bg-gray-600 focus:outline focus:outline-emerald-500"
+                  placeholder="Send a message..."
+                  value={messageText}
+                  onChange={(e) => {
+                    setMessageText(e.target.value);
+                  }}
+                  name="message"
+                />
+                <button type="submit" className="neon-loader mb-4 text-black">
+                  Submit
+                </button>
+              </form>
+            </footer>
           </div>
-         
-  
+        </div>
       </>
     );
   }
