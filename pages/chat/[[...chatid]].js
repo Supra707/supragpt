@@ -1,4 +1,5 @@
 import { useUser } from "@auth0/nextjs-auth0/client";
+
 import Head from "next/head";
 import Link from "next/link";
 import Lottie from "lottie-react";
@@ -8,14 +9,14 @@ import ChatSideBar from "components/Sidebar/ChatSideBar";
 import InteractiveDrawer from "components/Sidebar/MobileSideBar";
 import { useState, useEffect } from "react";
 import { main } from "pages/api/chat/sendMessage.mjs";
-
+import ConfettiExplosion from "react-confetti-explosion";
 export default function Chat() {
   const { user } = useUser();
   const [messageText, setMessageText] = useState("");
-  const [uiresponse, setuiresponse] = useState("");
   const [chatHistory, setChatHistory] = useState([]);
   const [showSupraGpt, setShowSupraGpt] = useState(true);
 
+  const [isExploding, setIsExploding] = useState(false);
   useEffect(() => {
     // If there is chat history, hide the SupraGpt message
     if (chatHistory.length > 0) {
@@ -26,14 +27,24 @@ export default function Chat() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const userMessage = messageText;
-
+    if (userMessage == "") {
+      alert(
+        "Type in something!.Don't be extra smart.This api has limits(Only$5).I am poor man"
+      );
+      return;
+    }
     // Update chat history with user's message
     setChatHistory((prevHistory) => [
       ...prevHistory,
       { type: "user", message: userMessage },
     ]);
-
+    // Show confetti on successful form submission
+    setIsExploding(true);
     setMessageText("");
+    setTimeout(() => {
+      setIsExploding(false);
+    }, 5000);
+
     try {
       const apiResponse = await main(userMessage);
 
@@ -57,11 +68,17 @@ export default function Chat() {
         <Head>
           <title>New Chat</title>
         </Head>
+        <div className="flex justify-center">
+          <span> {isExploding && <ConfettiExplosion />}</span>
+          <span>{isExploding && <ConfettiExplosion />}</span>
+        </div>
 
         <div className="grid h-screen grid-cols-1 overflow-y-hidden md:grid-cols-[260px_1fr] ">
           <ChatSideBar className="md:col-span-1" />
+
           <div className="flex flex-1 flex-col overflow-y-auto bg-gray-700 text-white">
             {/* Chat window */}
+
             <div className="flex-1 p-4 md:p-6 lg:p-8 xl:p-10">
               <InteractiveDrawer />
             </div>
@@ -97,6 +114,7 @@ export default function Chat() {
               </div>
             ))}
             {/* Footer with form */}
+
             <footer className=" bg-gray-800 p-4 md:p-6 lg:p-8 xl:p-10">
               <form
                 onSubmit={handleSubmit}
