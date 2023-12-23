@@ -4,12 +4,16 @@ import { UserProvider } from "@auth0/nextjs-auth0/client";
 
 function App({ Component, pageProps }) {
   return (
-    <UserProvider>
-      <Head>
-        <link rel="icon" href="/favicon.png" />
-      </Head>
-      <Component {...pageProps} />
-    </UserProvider>
+    
+      <UserProvider>
+        <Head>
+          <link rel="icon" href="/favicon.png" />
+        </Head>
+  
+        <Component {...pageProps} />
+     
+      </UserProvider>
+  
   );
 }
 

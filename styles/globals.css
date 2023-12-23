@@ -47,4 +47,65 @@ body {
     background-color: #00cccc; /* Adjusted animation background color */
   }
 }
+.neon-glow {
+  position: relative;
+  z-index: 1;
+  background-color: rgb(104, 225, 17); /* Adjust the background color as needed */
+  animation: neonGlow 1s infinite alternate;
+}
+
+@keyframes neonGlow {
+  0% {
+    box-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00, 0 0 30px #00ff00;
+  }
+  100% {
+    box-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00, 0 0 30px #00ff00;
+  }
+}
+/* Sample styles for user messages with neon glow effect */
+/* Professional styles for user messages */
+/* Gradient styles for user messages */
+/* Fabulous styles for user messages */
+/* Fabulous styles for user messages */
+/* Fabulous styles for user messages */
+.user-message {
+  background: linear-gradient(45deg, #FF6B6B, #FFE66D); /* Gradient background from coral to yellow for user messages */
+  color: #000; /* Black text color for user messages */
+ 
+  font-weight: 700; /* Extra bold font weight for user messages */
+  padding: 16px; /* Padding around the message */
+  margin-bottom: 16px; /* Margin between messages */
+  border-radius: 12px; /* Rounded corners */
+  animation: fadeInUp 0.5s ease; /* Fade-in animation */
+}
+
+/* Fabulous styles for API responses */
+.api-message {
+  background: linear-gradient(45deg, #34ace0, #33d9b2); /* Gradient background from blue to turquoise for API messages */
+  color: #000; /* Black text color for API messages */
+  
+  font-weight: 700; /* Extra bold font weight for API messages */
+  padding: 16px; /* Padding around the message */
+  margin-bottom: 16px; /* Margin between messages */
+  border-radius: 12px; /* Rounded corners */
+  animation: fadeInUp 0.5s ease; /* Fade-in animation */
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* Add this to your global CSS or the component's CSS module */
+.neon-gloww {
+  text-shadow: 0 0 0px rgba(255, 255, 0, 0.8),
+               0 0 5px rgba(255, 242, 0, 0.8),
+               0 0 10px rgba(255, 242, 0, 0.8);
+}
+
 

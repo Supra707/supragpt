@@ -18,7 +18,7 @@ export default function Home() {
         <meta name="description" content={metadata.description} />
   
       </Head>
-      <h1>Welcome to the Next JS &amp; ChatGPT Starter</h1>
+      <h1>Welcome to the Supra &amp; GPT</h1>
       <div className="flex gap-2">
         {
           !!user && <Link href="/api/auth/logout">

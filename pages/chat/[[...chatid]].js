@@ -3,69 +3,177 @@ import Head from "next/head";
 import Link from "next/link";
 import Lottie from "lottie-react";
 import awesome from "../../public/Awesome1.json";
+import awesome2 from "../../public/Awesome2.json";
+import ChatSideBar from "components/Sidebar/ChatSideBar";
+import InteractiveDrawer from "components/Sidebar/MobileSideBar";
+import { useState, useEffect } from "react";
+import { main } from "pages/api/chat/sendMessage.mjs";
+
 export default function Chat() {
   const { user } = useUser();
-  console.log(user);
+  const [messageText, setMessageText] = useState("");
+  const [uiresponse, setuiresponse] = useState("");
+  const [chatHistory, setChatHistory] = useState([]);
+  const [showSupraGpt, setShowSupraGpt] = useState(true);
+
+  useEffect(() => {
+    // If there is chat history, hide the SupraGpt message
+    if (chatHistory.length > 0) {
+      setShowSupraGpt(false);
+    }
+  }, [chatHistory]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const userMessage = messageText;
+
+    // Update chat history with user's message
+    setChatHistory((prevHistory) => [
+      ...prevHistory,
+      { type: "user", message: userMessage },
+    ]);
+
+    setMessageText("");
+    try {
+      const apiResponse = await main(userMessage);
+
+      // Update chat history with API response
+      setChatHistory((prevHistory) => [
+        ...prevHistory,
+        { type: "api", message: apiResponse },
+      ]);
+
+      setuiresponse(apiResponse);
+      console.log(apiResponse);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   if (user) {
     return (
-      <div>
+      // The regular chat page
+      <>
         <Head>
-          <title>Next JS ChatGPT Starter</title>
+          <title>New Chat</title>
         </Head>
-        <h1>Welcome to the ChatID page</h1>
-        <Link href="/api/auth/logout">Logout</Link>
-        <>&nbsp;</>
-        <Link href="/">Home</Link>
-      </div>
+    
+          <div className="grid h-screen grid-cols-1 overflow-y-hidden md:grid-cols-[260px_1fr] ">
+            <ChatSideBar className="md:col-span-1" />
+            <div className="flex flex-1 flex-col overflow-y-auto bg-gray-700 text-white">
+              {/* Chat window */}
+              <div className="flex-1 p-4 md:p-6 lg:p-8 xl:p-10">
+                <InteractiveDrawer />
+              </div>
+
+              {/* Render SupraGpt message only if showSupraGpt is true */}
+              {showSupraGpt && (
+                <div>
+                  <div className="flex justify-center">
+                    <Lottie
+                      animationData={awesome2}
+                      className="h-96 w-96  md:h-32 md:w-32 lg:h-[500px] lg:w-[500px]"
+                    />
+                  </div>
+
+                  <div className="neon-gloww mb-16 text-center text-4xl font-extrabold text-white lg:text-5xl">
+                    SupraGpt
+                  </div>
+                </div>
+              )}
+
+              {chatHistory.map((chat, index) => (
+                <div
+                  key={index}
+                  className={
+                    chat.type === "user" ? "user-message" : "api-message"
+                  }
+                >
+                  {chat.message}
+                </div>
+              ))}
+              {/* Footer with form */}
+              <footer className=" bg-gray-800 p-4 md:p-6 lg:p-8 xl:p-10">
+            <form
+              onSubmit={handleSubmit}
+              className="flex flex-col items-center  md:flex-row md:gap-4"
+            >
+              <textarea
+                className="mb-4  w-full resize-none rounded-md bg-gray-700 p-2 text-white focus:border-emerald-500 focus:bg-gray-600 focus:outline focus:outline-emerald-500"
+                placeholder="Send a message..."
+                value={messageText}
+                onChange={(e) => {
+                  setMessageText(e.target.value);
+                }}
+                name="message"
+              />
+              <button type="submit" className="neon-loader mb-4 text-black">
+                Submit
+              </button>
+            </form>
+          </footer>
+            </div>
+            
+          </div>
+         
+  
+      </>
     );
   }
-  return (
-    <>
-      <div className="bg-[#eeeea8] flex-col md:flex-row  flex min-h-screen items-center justify-start md:h-screen lg:min-h-screen gap-4 md:gap-6 overflow-y-hidden">
-      
-        <div className=" z-10 ml-2 md:ml-9 flex flex-col items-center p-6 text-black gap-2 md:gap-6">
 
+  return (
+    // The chat page for unauthorized access
+    <>
+      <div className="flex min-h-screen flex-col  items-center justify-start gap-4 overflow-y-hidden bg-[#eeeea8] md:h-screen md:flex-row md:gap-6 lg:min-h-screen">
+        <div className=" z-10 ml-2 flex flex-col items-center gap-2 p-6 text-black md:ml-9 md:gap-6">
           <div
-            className="mb-4  font-extrabold text-2xl"
+            className="mb-4  text-2xl font-extrabold"
             style={{ fontFamily: "Robotic" }}
           >
-                   <span   style={{ fontFamily: 'Arial' }} className="text-2xl"> &lt; &#47; &gt; </span>
-                    Looks like you
+            <span style={{ fontFamily: "Arial" }} className="text-2xl">
+              {" "}
+              &lt; &#47; &gt;{" "}
+            </span>
+            Looks like you
           </div>
           <div
-            className="mb-4  font-extrabold text-2xl"
+            className="mb-4  text-2xl font-extrabold"
             style={{ fontFamily: "Robotic" }}
           >
-            are not logged in 
+            are not logged in
           </div>
           <div
-            className="mb-4  font-extrabold text-2xl"
+            className="mb-4  text-2xl font-extrabold"
             style={{ fontFamily: "Robotic" }}
           >
-            Or Sign up Will You 
-            <span   style={{ fontFamily: 'Arial' }} className="text-2xl"> &lt; &#47; &gt;  </span>
+            Or Sign up Will You
+            <span style={{ fontFamily: "Arial" }} className="text-2xl">
+              {" "}
+              &lt; &#47; &gt;{" "}
+            </span>
           </div>
           <div className="flex gap-12">
-          <Link href="/api/auth/login">
-        <button className="neon-loader text-black"  style={{ fontFamily: "Robotic" }} >
-            
-           Login
-        </button>
-        </Link>
-        <Link href="/api/auth/signup">
-        <button className="neon-loader text-black"  style={{ fontFamily: "Robotic" }} >
-            
-          signup
-        </button>
-        </Link>
+            <Link href="/api/auth/login">
+              <button
+                className="neon-loader text-black"
+                style={{ fontFamily: "Robotic" }}
+              >
+                Login
+              </button>
+            </Link>
+            <Link href="/api/auth/signup">
+              <button
+                className="neon-loader text-black"
+                style={{ fontFamily: "Robotic" }}
+              >
+                signup
+              </button>
+            </Link>
           </div>
-          
         </div>
         <div>
-         
-           <Lottie animationData={awesome}/> 
+          <Lottie animationData={awesome} />
         </div>
-      
       </div>
     </>
   );
