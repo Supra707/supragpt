@@ -1,41 +1,41 @@
-import Head from "next/head";
-import Link from "next/link";
-import {useUser} from '@auth0/nextjs-auth0/client';
-export const metadata={
-    title:"SupraGPT-Conversations Redefined by SupraAI",
-    description:"Discover the Ultimate in Conversational Excellence with SupraGPT by SupraAI! Our Innovative Application, Powered by OpenAI's Leading Technology, Elevates User Chats to Unprecedented Levels. Immerse in Fluid, Dynamic Conversations as SupraGPT Intelligently Responds to User Inputs. Redefine Interactive Communication and Elevate Your Application's Chat Functionality. Experience the Future of Seamless Conversational Experiences – SupraGPT is Your Gateway to Next-Level User Engagement and Connection!"
-}
+import Hero from "@/components/Hero";
+import Brands from "@/components/Brands";
+import Feature from "@/components/Features";
+import About from "@/components/About";
+import FeaturesTab from "@/components/FeaturesTab";
+import FunFact from "@/components/FunFact";
+import Integration from "@/components/Integration";
+import CTA from "@/components/CTA";
+import FAQ from "@/components/FAQ";
+import Pricing from "@/components/Pricing";
+import Contact from "@/components/Contact";
+import Testimonial from "@/components/Testimonial";
+import Footer from "@/components/Footer";
+import Header from "@/components/Header";
+
+export const metadata = {
+  title: "SupraGpt-AI innovation Today,Redefinition Tomorrow",
+  description: "Let's Strive for a better Tommorow",
+  // other metadata
+};
+
 export default function Home() {
-  const{isLoading,user,error}=useUser();
-
-  if(isLoading) return <div>Loading...</div>
-  if(error)return <div>{error.message}</div>
-
   return (
-    <div>
-      <Head>
-        <title>{metadata.title}</title>
-        <meta name="description" content={metadata.description} />
-  
-      </Head>
-      <h1>Welcome to the Supra &amp; GPT</h1>
-      <div className="flex gap-2">
-        {
-          !!user && <Link href="/api/auth/logout">
-          Logout
-        </Link>
-        }
-        {!user &&<>
-          <Link href="/api/auth/login">
-          LogIn
-        </Link>
-        <Link href="/api/auth/signup">
-          Sign Up
-        </Link>
-        </>
-        }
-        <Link href="/chat">Chats</Link>
-      </div>
-    </div>
+    <main>
+      <Header/>
+      <Hero />
+      <Brands />
+      <Feature />
+      <About />
+      <FeaturesTab />
+      <FunFact />
+      <Integration />
+      <CTA />
+      <FAQ />
+      <Testimonial />
+      <Pricing />
+      <Contact />
+      <Footer/>
+    </main>
   );
 }

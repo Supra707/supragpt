@@ -30,7 +30,7 @@ export default function Chat() {
     if (userMessage == "") {
       alert(
         "Type in something!.Don't be extra smart.This api has limits(Only$5).I am poor man"
-      );
+      );    
       return;
     }
     // Update chat history with user's message
