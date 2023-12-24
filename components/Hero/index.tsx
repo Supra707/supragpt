@@ -19,7 +19,7 @@ const Hero = () => {
                 🔥 SupraGpt-The glowish next gen Generative PreTrained Transformer
               </h4>
               <h1 className="mb-5 pr-16 text-3xl font-bold text-black dark:text-white xl:text-hero ">
-              Empowering Tomorrow's Conversations with SupraGpt
+              Empowering Tomorrows Conversations with SupraGpt
               
               </h1>
               <p>
